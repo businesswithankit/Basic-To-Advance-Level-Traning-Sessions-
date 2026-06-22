@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FREE ONLINE EARNING COURSE BY ANKIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-light: #e2e8f0;
+            --accent: #22c55e;
+            --accent-dim: rgba(34, 197, 94, 0.1);
+            --error: #ef4444;
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+            --card-radius: 24px;
+            --border-color: #e2e8f0;
+        }
+
+        /* Resets */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; }
+        body { background: var(--bg); color: var(--text-main); overflow-x: hidden; padding-bottom: 50px; -webkit-user-select: none; user-select: none; }
+        .wrapper { max-width: 1000px; margin: 0 auto; padding: 15px; }
+
+        /* Banner */
+        .poster { width: 100%; border-radius: var(--card-radius); overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 25px; aspect-ratio: 16/9; background: #000; }
+        .poster img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Header & Description */
+        .header-box { text-align: center; margin-bottom: 30px; }
+        .main-title { font-size: clamp(1.2rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 15px; color: #0f172a; }
+        .premium-desc { background: var(--surface); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; text-align: left; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .premium-desc p { color: var(--text-dim); text-transform: none; font-size: 0.95rem; line-height: 1.6; font-weight: 500; }
+        .highlight { color: #0f172a; font-weight: 800; border-bottom: 2px solid var(--accent); }
+
+        /* Video Container Anti-Crop */
+        .video-container { position: relative; width: 100%; margin: 25px 0; }
+        .video-wrapper { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: var(--card-radius); overflow: hidden; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .video-shield { position: absolute; top: 0; left: 0; width: 100%; height: 85%; z-index: 5; background: transparent; }
+        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* Controls */
+        .controls-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 20px 0; }
+        .btn { padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); cursor: pointer; font-weight: 800; font-size: 0.7rem; background: var(--surface-light); color: var(--text-main); transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-success { background: var(--accent); color: #fff; border: none; box-shadow: 0 5px 15px var(--accent-dim); }
+        .btn-blue { background: #2563eb; color: #fff; border: none; }
+
+        /* Live Indicator */
+        .live-bar { display: flex; align-items: center; justify-content: center; padding: 15px; background: rgba(34, 197, 94, 0.08); border-radius: 15px; border: 1px solid rgba(34, 197, 94, 0.2); margin-bottom: 25px; }
+        .dot { width: 10px; height: 10px; background: var(--error); border-radius: 50%; animation: blink 1.2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .live-text { font-size: 0.8rem; font-weight: 800; color: var(--text-main); margin-left: 10px; }
+
+        /* Modules */
+        .section-box { background: var(--surface); padding: 25px; border-radius: var(--card-radius); margin-bottom: 30px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 20px; }
+        .lesson-card { padding: 16px; background: var(--bg); border-radius: 15px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; border: 1px solid var(--border-color); color: var(--text-main); }
+        .lesson-card.active { border-color: var(--accent); background: rgba(34, 197, 94, 0.08); color: var(--accent); }
+
+        /* Comments */
+        .comment-item { background: var(--bg); padding: 15px; border-radius: 14px; margin-bottom: 12px; border-left: 4px solid var(--accent); border: 1px solid var(--border-color); text-transform: none; }
+        .comment-item b { color: var(--text-main); display: block; margin-bottom: 5px; font-size: 0.85rem; }
+        .comment-item span { color: var(--text-dim); font-size: 0.85rem; }
+        .view-more-btn { background: transparent; border: 1px dashed var(--accent); color: var(--accent); width: 100%; padding: 14px; border-radius: 14px; cursor: pointer; font-weight: 800; margin-top: 15px; }
+
+        /* Popup Box Layout */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 9999; backdrop-filter: blur(15px); align-items: center; justify-content: center; }
+        .popup-card { background: var(--surface); width: 92%; max-width: 500px; border-radius: 35px; padding: 45px; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .invite-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg); color: var(--text-main); outline: none; text-align: center; font-size: 1rem; font-weight: 700; margin: 15px 0 5px; text-transform: uppercase; }
+        .msg-text { font-size: 0.8rem; color: var(--text-dim); margin-top: 10px; text-transform: none; }
+        .verifying-text { display: none; color: var(--accent); font-weight: 700; margin-top: 10px; font-size: 0.85rem; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="wrapper">
+    <div class="poster"><img src="https://i.postimg.cc/PqPnyfyk/file-0000000067e471faa666a8b4dd5a077f.png" alt="Ankit Training"></div>
+
+    <div class="header-box">
+        <h1 class="main-title">FREE ONLINE EARNING COURSE BY ANKIT 🇮🇳</h1>
+        <div class="premium-desc">
+            <p>Welcome To <span class="highlight">LEARN WITH ANKIT</span> Official Training. Ye Course Aapko Zero Se Online Earning Expert Banane Ke Liye Design Kiya Gaya Hai. Har Module Ko Bina Skip Karein Dekhein.</p>
+        </div>
+    </div>
+
+    <div class="video-container">
+        <div class="video-wrapper">
+            <div class="video-shield"></div>
+            <iframe id="videoFrame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+
+        <div class="controls-container">
+            <button class="btn" onclick="controlVideo('playVideo')">▶ PLAY</button>
+            <button class="btn" onclick="controlVideo('pauseVideo')">⏸ PAUSE</button>
+            <button class="btn btn-blue" onclick="toggleFullScreen()">⛶ FULL SCREEN</button>
+            <button class="btn btn-success" id="completeBtn" onclick="markComplete()">✔ COMPLETE CHAPTER</button>
+        </div>
+
+        <div class="live-bar">
+            <div class="dot"></div>
+            <div class="live-text"><span id="liveCount">149</span> STUDENTS LIVE NOW</div>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <h3 style="font-size: 0.8rem;">📚 TRAINING MODULES</h3>
+        <div id="lessons" class="module-grid"></div>
+    </div>
+
+    <div class="section-box">
+        <h3 style="font-size: 0.8rem; margin-bottom: 20px;">💬 STUDENT FEEDBACK</h3>
+        <div id="mainCommentList"></div>
+        <button class="view-more-btn" onclick="openCommentPopup()">VIEW ALL 50+ REVIEWS</button>
+    </div>
+
+    <div class="section-box" style="text-align: center; opacity: 0.7; border:none; background:none; box-shadow:none;">
+        <div style="font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; color: var(--text-main);">
+            PRODUCTION BY: <span style="color:var(--accent)">LEARN WITH ANKIT</span> | DREAM CLUB 
+        </div>
+    </div>
+</div>
+
+<!-- COMMENTS MODAL -->
+<div id="commentModal" class="modal">
+    <div class="popup-card">
+        <h3 style="color:var(--text-main); margin-bottom: 25px;">STUDENT COMMUNITY REVIEWS</h3>
+        <div id="fullCommentList" style="text-align: left; max-height: 60vh; overflow-y: auto;"></div>
+        <button class="btn btn-success" style="width:100%; margin-top:20px;" onclick="closeCommentPopup()">CLOSE GALLERY</button>
+    </div>
+</div>
+
+<!-- MANDATORY INITIAL INVITE CODE MODAL -->
+<div id="inviteModal" class="modal" style="display: flex;">
+    <div class="popup-card">
+        <h2 style="color:var(--text-main); font-weight: 800;">ENTER INVITE CODE</h2>
+        <p style="text-transform:none; margin:15px 0; font-size: 0.9rem; color: var(--text-dim);">Please enter your exclusive invite code to unlock the full training:</p>
+        
+        <input type="text" id="inviteInput" class="invite-input" placeholder="ENTER INVITE CODE" />
+        <div id="verifyingText" class="verifying-text">Verifying Invite Code... Please wait.</div>
+
+        <button class="btn btn-success" style="width:100%; margin-top:20px;" onclick="verifyInviteCode()">UNLOCK TRAINING</button>
+
+        <p class="msg-text">Don't have an exclusive invite code?</p>
+        <button class="btn" style="width:100%; margin-top:10px; background:var(--surface-light);" onclick="rejectAccess()">I HAVE NO INVITE CODE</button>
+    </div>
+</div>
+
+<script>
+const videos = [
+    {title:"RWI SETUP", id:"4YRomik-nIk"}, {title:"INSTAGRAM OPTIMIZATION", id:"YIvZy2IbUfk"},
+    {title:"FACEBOOK OPTIMISATION", id:"08WmtLo0hLI"}, {title:"WHATSAPP OPTIMIZATION", id:"EvVRjcYzlXE"},
+    {title:"QUICK REPLY STRATEGY", id:"LkomDVk9c3Y"}, {title:"HOW TO TALK LEADS", id:"dAjwWoGA_w"},
+    {title:"CALL RECORDING CASE STUDY", id:"oyCXV_2zPms"}, {title:"OBJECTION HANDLING", id:"DcqgotaAQ34"},
+    {title:"DAILY ACTION PLAN", id:"6ORKGas8oZw"}
+];
+
+const indianReviews = [
+    {n:"Sandeep Singh", m:"Bhai kya strategy batayi hai, earning start ho gayi!"},
+    {n:"Anjali Verma", m:"Finally genuine content mila RWI ke liye."},
+    {n:"Vivek Kumar", m:"Insta optimization hacks are fire! 🔥"},
+    {n:"Priya Sharma", m:"Ankit sir training is very easy to follow."},
+    {n:"Rahul Gupta", m:"Best roadmap for affiliate marketing."},
+    {n:"Naveen Saini", m:"Leads handling ab easy ho gayi hai."},
+    {n:"Sneha Roy", m:"Setup 10 minutes me ho gaya, thanks sir."},
+    {n:"Aman Deep", m:"WhatsApp automation is a game changer."},
+    {n:"Karan Sharma", m:"Sir aapka calling recording session best tha."},
+    {n:"Megha Das", m:"RWI ecosystem is the best for beginners."},
+    {n:"Sumit", m:"Practical knowledge di hai pure course me."},
+    {n:"Rohit Jha", m:"Daily action plan ne mera routine set kar diya."},
+    {n:"Pooja Rani", m:"Quality of leads is much better now."},
+    {n:"Deepak", m:"Ads service ke liye apply kar diya hai."},
+    {n:"Vikram", m:"Simplified Hindi training, love it."},
+    {n:"Ishita", m:"Very detailed and professional setup."},
+    {n:"Rohan", m:"Best mentor for online earning."},
+    {n:"Tanvi", m:"Earning proofs are real, joined today."},
+    {n:"Yash", m:"Consistent results mil rahe hain."},
+    {n:"Manisha", m:"Training is fire! Everything is clear."},
+    {n:"Abhishek", m:"Zero to Hero journey started."},
+    {n:"Kavita", m:"Facebook strategy worked for me."},
+    {n:"Tushar", m:"High quality video training."},
+    {n:"Sanjana", m:"Highly recommended for everyone."},
+    {n:"Harsh", m:"Value for money although it's free."},
+    {n:"Nidhi", m:"Support is very active."},
+    {n:"Rajesh", m:"Module wise learning is great."},
+    {n:"Sahil", m:"Got my first lead in 24 hours."},
+    {n:"Anshul", m:"Interactive and easy."},
+    {n:"Ritika", m:"Calling skills improved a lot."},
+    {n:"Aryan", m:"Systematic approach to earning."},
+    {n:"Divya", m:"Thank you Ankit sir for this help."},
+    {n:"Gaurav", m:"Best affiliate training in India."},
+    {n:"Shubham", m:"Professionalism at its peak."},
+    {n:"Muskan", m:"Trustworthy and transparent."},
+    {n:"Kunal", m:"Action plan is very solid."},
+    {n:"Parul", m:"Real results, real training."},
+    {n:"Jatin", m:"Technical part was so easy."},
+    {n:"Priti", m:"Daily earning start ho gayi."},
+    {n:"Umesh", m:"RWI is a big brand now."},
+    {n:"Varun", m:"Calling script is very helpful."},
+    {n:"Sakshi", m:"Everything is explained perfectly."},
+    {n:"Manoj", m:"Zero investment roadmap."},
+    {n:"Barkha", m:"Thanks for the assets bundle."},
+    {n:"Tarun", m:"No waste of time, only knowledge."},
+    {n:"Srishti", m:"Started earning from day 4."},
+    {n:"Lucky", m:"Best RWI mentor."},
+    {n:"Pinky", m:"Social media game change ho gaya."},
+    {n:"Arun", m:"Great experience learning here."},
+    {n:"Dimple", m:"Highly satisfied with training."},
+    {n:"Bobby", m:"Must watch training."}
+];
+
+let currentUnlock = parseInt(localStorage.getItem('ankitCourse_unlock')) || 0; 
+let activeIndex = parseInt(localStorage.getItem('ankitCourse_active')) || 0;
+
+function loadVideo(index) {
+    if (index > currentUnlock) return;
+    activeIndex = index;
+    localStorage.setItem('ankitCourse_active', activeIndex);
+    const f = document.getElementById("videoFrame");
+    f.src = `https://www.youtube.com/embed/${videos[index].id}?enablejsapi=1&rel=0&modestbranding=1&controls=1&showinfo=0&iv_load_policy=3&fs=1`;
+    renderLessons();
+}
+
+function renderLessons() {
+    const list = document.getElementById("lessons"); list.innerHTML = "";
+    videos.forEach((v, i) => {
+        const div = document.createElement("div");
+        div.className = `lesson-card ${i > currentUnlock ? 'locked' : ''} ${i === activeIndex ? 'active' : ''}`;
+        div.innerHTML = `<span>${i + 1}. ${v.title}</span> <span>${i > currentUnlock ? '🔒' : '✅'}</span>`;
+        div.onclick = () => { if(i <= currentUnlock) loadVideo(i); };
+        list.appendChild(div);
+    });
+}
+
+function renderComments() {
+    let m = ""; let f = "";
+    indianReviews.forEach((r, i) => {
+        const card = `<div class="comment-item"><b>${r.n}</b><span>${r.m}</span></div>`;
+        if(i < 20) m += card; f += card;
+    });
+    document.getElementById("mainCommentList").innerHTML = m;
+    document.getElementById("fullCommentList").innerHTML = f;
+}
+
+function openCommentPopup() { document.getElementById("commentModal").style.display = "flex"; }
+function closeCommentPopup() { document.getElementById("commentModal").style.display = "none"; }
+
+function markComplete() {
+    if (activeIndex === currentUnlock) {
+        if (currentUnlock < videos.length - 1) {
+            currentUnlock++;
+            localStorage.setItem('ankitCourse_unlock', currentUnlock);
+            renderLessons();
+            alert("NEXT CHAPTER UNLOCKED!");
+        } else {
+            // Reaching end of course redirects to free ads setup
+            window.location.href = "https://wa.link/d71s71";
+        }
+    } else {
+        alert("COMPLETE PREVIOUS CHAPTERS FIRST OR ALREADY COMPLETED!");
+    }
+}
+
+function verifyInviteCode() {
+    const entered = document.getElementById("inviteInput").value.trim().toUpperCase();
+    const verifyingText = document.getElementById("verifyingText");
+    
+    if(entered === "FREE2026") {
+        verifyingText.style.display = "block";
+        verifyingText.style.color = "var(--accent)";
+        verifyingText.innerText = "Invite Code Verified! Loading Training...";
+        
+        setTimeout(() => {
+            document.getElementById("inviteModal").style.display = "none";
+            loadVideo(activeIndex);
+        }, 1500);
+    } else {
+        verifyingText.style.display = "block";
+        verifyingText.style.color = "var(--error)";
+        verifyingText.innerText = "Invalid Invite Code. Please Try Again.";
+    }
+}
+
+function rejectAccess() {
+    window.location.href = "https://skillvora.odoo.com";
+}
+
+function toggleFullScreen() {
+    const ifr = document.getElementById("videoFrame");
+    if (ifr.requestFullscreen) ifr.requestFullscreen();
+    else if (ifr.webkitRequestFullscreen) ifr.webkitRequestFullscreen();
+}
+
+function controlVideo(f) { document.getElementById("videoFrame").contentWindow.postMessage(`{"event":"command","func":"${f}","args":""}`, "*"); }
+
+window.onload = () => {
+    // Shows the mandatory invite popup initially, content populates behind it.
+    renderLessons();
+    renderComments();
+    setInterval(() => {
+        document.getElementById("liveCount").innerText = Math.floor(Math.random() * (165 - 145 + 1)) + 145;
+    }, 3500);
+};
+</script>
+</body>
+</html>
